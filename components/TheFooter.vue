@@ -1,53 +1,43 @@
 <template>
-  <footer>
-    <div class="footer-container">
-        <div>© {{thisYear}} faux Majeure</div>
-        <!-- <a href="https://www.instagram.com/fauxmajeure/">IG</a> -->
-        <img src="/faux-majeure-logo.png" alt="faux majeure logo" />
-    </div>
-  </footer>
+    <footer>
+        <NuxtLink to="/exit" v-if="useLink">
+            <img src="/exit-logo.png" alt="" />
+        </NuxtLink>
+        <img v-else src="/exit-logo.png" />
+    </footer>
 </template>
 
 <script lang="ts">
 export default {
-    data() {
-        return {
-            thisYear: new Date(Date.now()).getFullYear()
+    props: {
+        useLink: {
+            type: Boolean,
+            default: true
         }
     }
-}
+ }
 </script>
-
 
 <style lang="scss" scoped>
 footer {
-    font-family: Montserrat;
-    min-width: 100vw;
-    width: 100%;
-    max-height: 15vh;
-    height: 100%;
-    
-    .footer-container {
-        max-height: 15vh;
-        display: flex;
-        justify-content: space-between;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 2em;
+
+    img {
+        max-width: 20vw;
+    }
+
+    @media only screen and (min-width: 750px) {
+        height: 150px;
+        margin: 0;
         align-items: center;
-        margin: 1em;
 
         img {
-            max-width: 70px;
-            width: 100%;
+            max-width: 100px
         }
     }
-
-    a {
-        color: black;
-        text-decoration: none;
-    }
-}
-
-@font-face {
-    font-family: Montserrat;
-    src: url("/Montserrat-Medium.ttf");
 }
 </style>

@@ -91,3 +91,5 @@ sw.*
 
 *.jpg
 *.png
+
+.firebase

@@ -1,28 +1,46 @@
 <template>
-    <div class="edit-container">
+    <div class="edit-container" v-if="page.projects.length > 0">
         <div class="edit-header-container">
             <div class="edit-header">
-                <h2>Images</h2>
-                <Button @click.native="addPhoto">add</Button>
+                <h2>Projects</h2>
+                <Button @click.native="addNewProject">add</Button>
             </div>
         </div>
-        <div class="edit-block" v-for="(photo, index) of photos" :key="index">
+        <div class="edit-block" v-for="(project, index) of page.projects" :key="index">
             <div class="edit-project-header">
-                <h3>{{photo}}</h3>
-                <Button @click.native="removePhoto(index)">delete</Button>
+                <h3>{{project.name}}</h3>
+                <Button @click.native="removeProject(index)">delete</Button>
+            </div>
+            <div class="prop-block">
+                <p>Name</p>
+                <input type="text" v-model="project.name" @change="save()">
+            </div>
+            <div class="prop-block">
+                <p>Date</p>
+                <input type="date" v-model="project.date" @change="save()">
+            </div>
+            <div class="prop-block">
+                <p>YouTube</p>
+                <textarea  v-model="project.youtube" @change="save()"></textarea>
+            </div>
+            <div class="prop-block">
+                <p>SoundCloud</p>
+                <textarea  v-model="project.soundcloud" @change="save()"></textarea>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { GetAdmins, GetFileUrl, GetPhotos, SetPhotos } from "@/services/firebase";
+import { GetAdmins, GetProjects, SetProjects } from "@/services/firebase";
 import { getAuth } from "firebase/auth";
 export default {
     layout: 'editLayout', 
     data() {
         return {
-            photos:[]
+            page: {
+                projects: []
+            }
         }
     },
     head() {
@@ -32,16 +50,16 @@ export default {
     },
     methods: {
         async save() {
-            //await SetProjects(this.page);
+            await SetProjects(this.page);
         },
-        addPhoto() {
-            //this.page.projects.push({name: '', date: '', youtube: '', soudcloud: ''});
-            //this.save();
+        addNewProject() {
+            this.page.projects.push({name: '', date: '', youtube: '', soudcloud: ''});
+            this.save();
         },
-        removePhoto(index) {
-            if (confirm('Are you sure you want to delete this photo')) {
-                //this.page.projects.splice(index, 1);
-                //this.save();
+        removeProject(index) {
+            if (confirm('Are you sure you want to delete this project')) {
+                this.page.projects.splice(index, 1);
+                this.save();
             }
         }
     },
@@ -52,11 +70,9 @@ export default {
             admins &&
             admins.includes(auth.currentUser.email)) 
         {
-            const photoContainer = await GetPhotos();
-            const filenames = photoContainer.data().photos;
-            for (const filename of filenames) {
-                this.photos.push(await GetFileUrl(filename));
-            }
+            const projectContainer = await GetProjects();
+            let projects = projectContainer.data().projects;
+            this.page.projects = projects;
         } else { 
             this.$router.push("/")
         }

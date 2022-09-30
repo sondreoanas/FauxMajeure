@@ -8,11 +8,11 @@ export class Project {
         this.name = name;
         const date = new Date(dateString);
         this.date = this.GetDateString(date);
-        this.youtube = this.formatYoutubeHTML(youtube);
+        this.youtube = Project.formatYoutubeHTML(youtube);
         this.soundcloud = soundcloud;
     }
 
-    private formatYoutubeHTML(html: String): String {
+    public static formatYoutubeHTML(html: String): String {
         if (html.indexOf('<iframe') > -1) {
             if (html.indexOf('width') > -1) {
                 html = html.replace(new RegExp('width="[a-zA-Z0-9._-]*"'), 'width="100%"');
