@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <NuxtLink to="/exit" v-if="useLink">
+        <NuxtLink to="/wholeteamdiamondisreal" v-if="useLink">
             <img src="/exit-logo.png" alt="" />
         </NuxtLink>
         <img v-else src="/exit-logo.png" />

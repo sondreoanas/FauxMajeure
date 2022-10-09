@@ -1,6 +1,6 @@
 <template>
   <header>
-    <NuxtLink to="/exit-sign">
+    <NuxtLink to="/">
       <img src="/faux-logo.png" alt="" />
     </NuxtLink>
   </header>

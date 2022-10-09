@@ -6,10 +6,10 @@
             </div>
             <div class="arrows">
                 <div class="left">
-                    <span v-if="index > 0" @click="slidePrev">OLDER</span>
+                    <span v-if="index > 0" @click="slidePrev">NEWER</span>
                 </div>
                 <div>
-                    <span v-if="index < contentList.length - 1" @click="slideNext">NEWER</span>
+                    <span v-if="index < contentList.length - 1" @click="slideNext">OLDER</span>
                 </div>
             </div>
         </div>
@@ -78,12 +78,12 @@ export default {
         }
 
         .arrows {
+            font-size: 18px;
             display: flex;
             justify-content: space-between;       
             font-family: Arial, Helvetica, sans-serif;    
             font-style: italic;
-            font-size: 28px;
-            margin-top: 1em; 
+            margin-top: 2em; 
 
             div {
                 max-width: 150px;
