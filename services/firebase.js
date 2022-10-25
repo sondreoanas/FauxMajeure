@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, getDocs, doc, getDoc, collection, setDoc } from "firebase/firestore";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage";
 import { IProjectContainer } from "~/data/Project";
 import firebaseConfig from '../firebaseconfig'
 
@@ -43,4 +43,30 @@ export async function GetPhotoUrls(filenames) {
     photoUrls.push(await GetFileUrl(photo));
   }
   return photoUrls;
+}
+
+export async function UploadPhoto(file) {
+  const storage = getStorage();
+  const storageRef = ref(storage, file.name);
+  await uploadBytes(storageRef, file);
+  const photos = (await GetPhotos()).data();
+  if (!photos.Photos.includes(file.name)) {
+    photos.Photos.push(file.name);
+    await SetPhotos(photos);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export async function DeletePhoto(filename) {
+  const storage = getStorage();
+  const storageRef = ref(storage, filename);
+  await deleteObject(storageRef);
+  const photos = (await GetPhotos()).data();
+  const index = photos.Photos.indexOf(filename);
+  if (index > -1) {
+    photos.Photos.splice(index, 1);
+    SetPhotos(photos);
+  }
 }

@@ -31,7 +31,7 @@ footer {
     }
 
     @media only screen and (min-width: 750px) {
-        height: 150px;
+        min-height: 150px;
         margin: 0;
         align-items: center;
 

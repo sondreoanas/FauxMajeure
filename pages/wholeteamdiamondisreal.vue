@@ -54,6 +54,7 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    max-height: 100vh;
     
     .exit-container {
         display: flex;
@@ -80,7 +81,7 @@ export default {
                 margin: 0;
 
                 img {
-                    max-width: 400px
+                    //max-width: 400px 
                 }
             }
         }    

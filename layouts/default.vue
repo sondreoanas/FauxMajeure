@@ -13,6 +13,6 @@ html, body {
 .page {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
 }
 </style>

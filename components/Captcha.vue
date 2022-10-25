@@ -98,7 +98,7 @@ export default {
                 else return false;
             });
             if (verify) {
-                this.$router.push("/exit-sign");
+                this.$router.push("/inside");
             } else {
                 this.getCaptcha();
             }

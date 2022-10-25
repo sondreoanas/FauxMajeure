@@ -1,6 +1,6 @@
 <template>
   <header>
-    <NuxtLink to="/">
+    <NuxtLink to="/inside">
       <img src="/faux-logo.png" alt="" />
     </NuxtLink>
   </header>
